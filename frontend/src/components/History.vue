@@ -4,7 +4,7 @@
         <div class="tableHead2">Операция</div>
         <div class="tableHead3">Информация об элементе</div>
         <div class="Data">
-            <div class="dataRow" v-for="(historyRecord,index) in historyRecords" :key="index">
+            <div class="dataRow" v-for="(historyRecord,index) in filteredHistoryRecord" :key="index">
                 <div class="column1">{{historyRecord.time | formatTime}}</div>
                 <div class="column2">{{historyRecord.operation}}</div>
                 <div class="column3">id: {{historyRecord.item.id}}, name: {{historyRecord.item.name}}</div>
@@ -17,6 +17,12 @@
     import {mapState} from 'vuex';
 
     export default {
+        props: {
+            historyFilter: {
+                type: String,
+                default: 'all'
+            }
+        },
         filters: {
             formatTime(timestamp) {
                 const dateTime = new Date(timestamp);
@@ -24,7 +30,18 @@
             }
         },
         computed: {
-            ...mapState('history', ['historyRecords'])
+            ...mapState('history', ['historyRecords', 'operationTypes']),
+            filteredHistoryRecord() {
+                switch (this.historyFilter) {
+                    case 'add': {
+                        return this.historyRecords.filter((historyItem) => historyItem.operation === this.operationTypes.add)
+                    }
+                    case 'remove': {
+                        return this.historyRecords.filter((historyItem) => historyItem.operation === this.operationTypes.remove)
+                    }
+                }
+                return this.historyRecords;
+            }
         }
     }
 </script>
@@ -36,11 +53,10 @@
         gap: 0 0;
     }
 
-
     .history-table {
         width: 500px;
         margin: auto;
-        height: inherit;
+        height: 100%;
 
         @include gridColumnsWidth;
         grid-template-rows: 1.5em 1fr;

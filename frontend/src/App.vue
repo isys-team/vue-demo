@@ -5,7 +5,7 @@
                 <div id="nav">
                     <router-link to="/">Главная страница</router-link>
                     |
-                    <router-link to="/history">История</router-link>
+                    <router-link to="/history/">История</router-link>
                 </div>
                 <img alt="Vue logo" src="./assets/logo.png">
             </div>
@@ -17,6 +17,19 @@
     </div>
 </template>
 
+<script>
+    import {mapActions} from "vuex";
+
+    export default {
+        mounted() {
+            this.getDataFromServer();
+        },
+        methods: {
+            ...mapActions('columns', ['getDataFromServer']),
+        }
+    }
+</script>
+
 <style lang="scss">
     body {
         margin: 0;
@@ -27,13 +40,28 @@
         text-align: center;
     }
 
+
+    button {
+        padding: 0.5em;
+        text-align: center;
+    }
+
+    button, input {
+        height: 32px;
+        box-sizing: border-box;
+    }
+
+    .home {
+        height: inherit;
+    }
+
     .grid-container {
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 280px 1fr;
         gap: 1px 1px;
         grid-template-areas: "Header" "MainContainer";
-        height: calc(100vh - 10px);
+        height: 100vh;
     }
 
     .Header {
@@ -43,9 +71,11 @@
 
     .MainContainer {
         grid-area: MainContainer;
-        height: calc(100vh - 1px - 280px - 1px - 10px); /* -1px: gaps*/
+        overflow: hidden;
+
         & > * {
-            height: inherit;
+            height: 100%;
+            overflow: hidden;
         }
     }
 

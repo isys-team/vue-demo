@@ -57,22 +57,20 @@
             filterValueLocal: {
                 // getter
                 get: function () {
-                    return this.$store.state.filterValue;
+                    return this.$store.state.columns.filterValue;
                 },
                 // setter
                 set: function (newValue) {
-                    this.$store.commit('setFilterValue', newValue);
+                    this.$store.commit('columns/setFilterValue', newValue);
                 }
             },
 
             ...mapGetters('columns', ['isDataLoading', 'filteredData', 'itemsInFirstColumnCount'])
         },
 
-        mounted() {
-            this.getDataFromServer();
-        },
+
         methods: {
-            ...mapActions('columns', ['getDataFromServer', 'moveItemToRightColumn', 'moveItemToLeftColumn']),
+            ...mapActions('columns', ['moveItemToRightColumn', 'moveItemToLeftColumn']),
             moveItemClick(item) {
                 this.moveItemToRightColumn(item);
             },
@@ -87,7 +85,7 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
 
     h3 {
         margin: 40px 0 0;
@@ -102,23 +100,13 @@
         padding: 0;
     }
 
-    button {
-        padding: 0.5em;
-        text-align: center;
-    }
-
-    button, input {
-        height: 32px;
-        box-sizing: border-box;
-    }
-
     .columns-component-grid {
-        height: inherit;
+        height: 100%;
 
         margin: 0 30px;
         display: grid;
         grid-template-columns: 1fr minmax(50px, 100px) 1fr;
-        grid-template-rows: 1fr 100px;
+        grid-template-rows: 1fr 65px;
         gap: 1px 1px;
         grid-template-areas: "FirstColumn ItemTransferControls SecondColumn" "BottomControls BottomControls BottomControls";
     }

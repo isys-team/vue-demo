@@ -3,9 +3,19 @@ version: '3.7'
 services:
 
     backend:
+        container_name: vue-demo-api
         build:
             context: backend/.
         ports: 
             - "3000:3000"
         volumes: 
             - "./backend:/app"
+
+    froentend:
+        container_name: vue-demo-front
+        build:
+            context: frontend/.
+        ports:
+            - "80:8080"
+        volumes:
+            - "./frontend:/app"
