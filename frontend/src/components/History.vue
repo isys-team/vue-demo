@@ -54,7 +54,7 @@
     }
 
     .history-table {
-        width: 500px;
+        width: 1000px;
         margin: auto;
         height: 100%;
 

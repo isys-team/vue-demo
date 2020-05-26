@@ -1,7 +1,9 @@
 var express = require('express');
+var cors = require('cors')
 var app = express();
 var itemsGenerator = require('./services/itemsGenerator');
 
+app.use(cors())
 
 app.get('/', function (req, res) {
     res.send(JSON.stringify(itemsGenerator.generateItems()));
