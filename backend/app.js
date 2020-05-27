@@ -3,9 +3,14 @@ var cors = require('cors')
 var app = express();
 var itemsGenerator = require('./services/itemsGenerator');
 
-app.use(cors())
+const corsOptions = {
+    origin: true,
+    methods: ['GET', 'POST', 'OPTIONS'],
+    credentials: true
+}
 
-app.get('/', function (req, res) {
+app.options("/", cors(corsOptions));
+app.get('/', cors(corsOptions),function (req, res) {
     res.send(JSON.stringify(itemsGenerator.generateItems()));
 });
 
