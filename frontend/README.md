@@ -3,8 +3,6 @@
 
 ## Установка проекта
 ```
-git clone https://github.com/[path to project]
-
 npm install
 ```
 
