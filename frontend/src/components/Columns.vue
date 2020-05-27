@@ -2,8 +2,6 @@
     <div class="columns-component-grid">
 
         <div class="FirstColumn">
-            <div v-if="filteredData.length === itemsInFirstColumnCount">Всего: <b>{{itemsInFirstColumnCount}}</b></div>
-            <div v-else>Всего: <b>{{itemsInFirstColumnCount}}</b> / Найдено: <b>{{filteredData.length}}</b></div>
             <ul>
                 <li class="item"
                     v-for="(item,index) in filteredData" :key="index">
@@ -39,6 +37,9 @@
         <div class="BottomControls">
             <label>Поиск: <input name="search" v-model="filterValueLocal"/></label>
             <button @click="clearFilterValue">Очистить</button>
+
+            <span v-if="filteredData.length === itemsInFirstColumnCount">Всего элементов: <b>{{itemsInFirstColumnCount}}</b></span>
+            <span v-else>Всего элементов: <b>{{itemsInFirstColumnCount}}</b> / Найдено: <b>{{filteredData.length}}</b></span>
         </div>
     </div>
 </template>
